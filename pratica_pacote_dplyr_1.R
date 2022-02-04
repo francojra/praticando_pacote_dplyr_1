@@ -11,23 +11,32 @@ View(dados)
 
 library(dplyr)
 
+# Peso médio por tipo de dieta -------------------------------------------------------------------------------------------------------------
+
 dados %>%
-  select(weight, Diet) %>%
+  select(weight, Diet) %>% #
   group_by(Diet) %>% # Sem o group_by é retornado a média total dos pesos
   summarise(mean(weight),
             sd(weight),
-            n())
+            n()) %>%
+  arrange() # Agrupa do maior para o menor peso
+
+# Peso médio para cada tempo --------------------------------------------------------------------------------------------------------------------
 
 dados %>%
   select(weight, Time) %>%
   group_by(Time) %>% 
   summarise(mean(weight),
             sd(weight),
-            n())
+            n()) %>%
+  arrange()
+
+# Peso médio por indivíduo -----------------------------------------------------------------------------------------------------------------
 
 dados %>%
   select(weight, Chick) %>%
   group_by(Chick) %>% 
   summarise(mean(weight),
             sd(weight),
-            n())
+            n()) %>%
+  arrange()
