@@ -55,7 +55,8 @@ d1 <- dados %>%
 d1
 
 ggplot(d1, aes(x = Diet, y = media)) +
-  geom_col()
+  geom_col(fill = "#2d004b") +
+  labs(x = "Tipo de dieta", y = "Peso médio (g)")
 
 d2 <- dados %>%
   select(weight, Time) %>% #
@@ -69,4 +70,18 @@ d2
 d2$Time <- as.factor(d2$Time)
 
 ggplot(d2, aes(x = Time, y = media)) +
-  geom_col()
+  geom_col(fill = "#2d004b") +
+    labs(x = "Tempo (dias)", y = "Peso médio (g)")
+
+d3 <- dados %>%
+  select(weight, Chick) %>%
+  group_by(Chick) %>% 
+  summarise(media = mean(weight),
+            desvio = sd(weight),
+            n = n()) %>%
+  arrange()
+d3
+
+ggplot(d3, aes(x = Chick, y = media)) +
+  geom_col(fill = "#2d004b") +
+    labs(x = "Inidivíduo", y = "Peso médio (g)")
