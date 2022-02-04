@@ -82,6 +82,10 @@ d3 <- dados %>%
   arrange()
 d3
 
-ggplot(d3, aes(x = Chick, y = media)) +
-  geom_col(fill = "#2d004b") +
-    labs(x = "Inidivíduo", y = "Peso médio (g)")
+library(forcats) # Pacote necessário para ordenar os valores de Y
+
+d3 %>%
+  mutate(name = fct_reorder(Chick, media)) %>%
+  ggplot(aes(x = name, y = media)) +
+    geom_col(fill = "#2d004b") +
+     labs(x = "Inidivíduo", y = "Peso médio (g)")
