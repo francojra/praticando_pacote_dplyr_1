@@ -40,3 +40,22 @@ dados %>%
             sd(weight),
             n()) %>%
   arrange()
+
+# Gráfico ----------------------------------------------------------------------------------------------------------------------------------
+
+library(ggplot2)
+
+ggplot(dados, aes(x = Diet, y = weight)) +
+  geom_boxplot()
+
+d <- dados %>%
+  select(weight, Diet) %>% #
+  group_by(Diet) %>% # Sem o group_by é retornado a média total dos pesos
+  summarise(media = mean(weight),
+            desvio = sd(weight),
+            n = n()) %>%
+  arrange() # Agrupa do maior para o menor peso
+d
+
+ggplot(d, aes(x = Diet, y = media)) +
+  geom_col()
