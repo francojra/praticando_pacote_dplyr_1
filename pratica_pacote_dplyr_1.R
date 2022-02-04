@@ -45,17 +45,28 @@ dados %>%
 
 library(ggplot2)
 
-ggplot(dados, aes(x = Diet, y = weight)) +
-  geom_boxplot()
-
-d <- dados %>%
+d1 <- dados %>%
   select(weight, Diet) %>% #
   group_by(Diet) %>% # Sem o group_by é retornado a média total dos pesos
   summarise(media = mean(weight),
             desvio = sd(weight),
             n = n()) %>%
   arrange() # Agrupa do maior para o menor peso
-d
+d1
 
-ggplot(d, aes(x = Diet, y = media)) +
+ggplot(d1, aes(x = Diet, y = media)) +
+  geom_col()
+
+d2 <- dados %>%
+  select(weight, Time) %>% #
+  group_by(Time) %>% # Sem o group_by é retornado a média total dos pesos
+  summarise(media = mean(weight),
+            desvio = sd(weight),
+            n = n()) %>%
+  arrange() # Agrupa do maior para o menor peso
+d2
+
+d2$Time <- as.factor(d2$Time)
+
+ggplot(d2, aes(x = Time, y = media)) +
   geom_col()
